@@ -1,0 +1,5 @@
+*.gif
+*.png
+!trophy.png
+
+.ipynb_checkpoints
