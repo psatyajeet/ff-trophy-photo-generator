@@ -11,9 +11,7 @@ class TrophyContract:
     contract_address = "0xCfEB869F69431e42cdB54A4F4f105C19C080A601"
     self.trophy = w3.eth.contract(address=Web3.toChecksumAddress(contract_address), abi=data['abi'])
 
-  def generate_trophy_gif(self):
-    token_id = 1
-
+  def generate_trophy_gif(self, token_id):
     years = self.trophy.functions.getYearsWithWinner().call()
     winners = [[str(year), self.trophy.functions.getWinnerName(token_id, year).call()] for year in years]
 
