@@ -103,7 +103,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "uint256",
           "name": "tokenId",
           "type": "uint256"
@@ -497,38 +497,13 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "yearsWithWinner",
-      "outputs": [
-        {
-          "internalType": "uint16",
-          "name": "",
-          "type": "uint16"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
-    },
-    {
-      "inputs": [
-        {
           "internalType": "address",
           "name": "recipient",
           "type": "address"
         },
         {
           "internalType": "string",
-          "name": "hash",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "tokenURI",
+          "name": "leagueName",
           "type": "string"
         }
       ],
@@ -542,6 +517,26 @@
       ],
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getLeagueName",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -569,7 +564,13 @@
       "constant": true
     },
     {
-      "inputs": [],
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
       "name": "getYearsWithWinner",
       "outputs": [
         {
@@ -596,6 +597,19 @@
         }
       ],
       "name": "setWinnerName",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "baseURI",
+          "type": "string"
+        }
+      ],
+      "name": "setBaseURI",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

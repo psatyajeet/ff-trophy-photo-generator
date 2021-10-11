@@ -19,17 +19,23 @@ def wrap_by_word(s, n):
 
     return ret
 
-def add_text_to_trophy(year, team_name):
+def get_trophy(league_name, year, team_name):
     my_image = Image.open("img/trophy.png")
     image_editable = ImageDraw.Draw(my_image)
     
-#     image_editable.text((240, 415), year, (0, 0, 0), font=font)
+    # Add year
     year_font = ImageFont.truetype('Roboto-Regular.ttf', 24)
-    image_editable.text((232, 125), year, (0, 0, 0), font=year_font)
+    image_editable.text(
+        (255, 150), 
+        year, 
+        (0, 0, 0), 
+        font=year_font,
+        align="center", 
+        anchor="ms")
     
+    # Add team name
     team_name_with_new_line = wrap_by_word(team_name, 2)
     name_font = ImageFont.truetype('Roboto-Regular.ttf', 20)
-#     image_editable.text((200, 435), team_name, (0, 0, 0), font=font)
     image_editable.text(
         (255, 75), 
         team_name_with_new_line, 
@@ -38,11 +44,24 @@ def add_text_to_trophy(year, team_name):
         align="center", 
         anchor="ms"
     )
+
+    # Add league name
+    team_name_with_new_line = wrap_by_word(league_name, 2)
+    league_font = ImageFont.truetype('Roboto-Regular.ttf', 16)
+    image_editable.text(
+        (255, 440), 
+        team_name_with_new_line, 
+        (0, 0, 0), 
+        font=league_font, 
+        align="center", 
+        anchor="ms"
+    )
+
     file_name = f"temp/winner_trophy_{year}.png"
     my_image.save(file_name)
     return file_name
 
-def generate_gif_from_winners(token_id, winners):
-    trophy_images = [add_text_to_trophy(winner[0], winner[1]) for winner in winners]
+def generate_gif_from_winners(token_id, league_name, winners):
+    trophy_images = [get_trophy(league_name, winner[0], winner[1]) for winner in winners]
     im = Image.open(trophy_images[0])
     im.save(f"output/winner_trophy_{token_id}.gif", save_all=True, append_images=[Image.open(img) for img in trophy_images[1:]], optimize=False, duration=1000, loop=0)
