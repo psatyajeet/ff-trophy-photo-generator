@@ -16,10 +16,22 @@ class TrophyContract:
   def get_contract(self):
     return self.trophy
 
-  def generate_trophy_gif(self, token_id):
+  def get_league_name(self, token_id):
     league_name = self.trophy.functions.getLeagueName(token_id).call()
+    return league_name
+
+  def get_winners(self, token_id):
     years = self.trophy.functions.getYearsWithWinner(token_id).call()
     winners = [[str(year), self.trophy.functions.getWinnerName(token_id, year).call()] for year in years]
+
+    return winners
+
+  def generate_trophy_for_token_id(self, token_id):
+    # league_name = self.trophy.functions.getLeagueName(token_id).call()
+    # years = self.trophy.functions.getYearsWithWinner(token_id).call()
+    # winners = [[str(year), self.trophy.functions.getWinnerName(token_id, year).call()] for year in years]
+    league_name = self.get_league_name(token_id)
+    winners = self.get_winners(token_id)
 
     generate_gif_from_winners(token_id, league_name, winners)
 
@@ -37,5 +49,15 @@ class TrophyContract:
   #     print(r.json()['image'])
   #     self.generate_trophy_gif(event.args.tokenId)
 
-  def generate_trophy_for_token_id(self, token_id):
-    self.generate_trophy_gif(token_id)
+  def get_metadata(self, token_id):
+    league_name = self.get_league_name(token_id)
+    winners = self.get_winners(token_id)
+    metadata = {
+        "image": f"https://1hzjyv5tlg.execute-api.us-west-1.amazonaws.com/trophy/image/{token_id}", 
+        "league_name": league_name,
+        "winners": winners
+      }
+
+    return metadata
+
+
